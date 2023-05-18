@@ -105,8 +105,6 @@ public class PasswordActivity extends AppCompatActivity implements PasswordInfoA
 
     @Override
     public void onItemClick(PasswordInfo info) {
-        Log.d("lock----->", lockInfo.getLockAlias());
-        Log.d("password----->", info.getNewKeyboardPwd());
         LockUtils.dialog(this, "是否确定删除此密码？", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

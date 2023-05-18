@@ -20,7 +20,14 @@ public class LockInfo {
     public LockInfo() {
     }
 
-    public LockInfo(Integer id,String name, String doorBluetoothName, String doorBluetoothMac, String doorBluetoothKey, Integer buildId, String buildName, Integer dormId, String dormNumber, String lockAlias) {
+    public LockInfo(String name, String doorBluetoothName, String doorBluetoothMac, String doorBluetoothKey) {
+        this.name = name;
+        this.doorBluetoothName = doorBluetoothName;
+        this.doorBluetoothMac = doorBluetoothMac;
+        this.doorBluetoothKey = doorBluetoothKey;
+    }
+
+    public LockInfo(Integer id, String name, String doorBluetoothName, String doorBluetoothMac, String doorBluetoothKey, Integer buildId, String buildName, Integer dormId, String dormNumber, String lockAlias) {
         this.id = id;
         this.name = name;
         this.doorBluetoothName = doorBluetoothName;

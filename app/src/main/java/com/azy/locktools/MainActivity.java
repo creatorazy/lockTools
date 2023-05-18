@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -97,17 +99,24 @@ public class MainActivity extends AppCompatActivity implements LockInfoAdapter.o
                         LockUtils.toast(getApplicationContext(), "不能为空");
                         return;
                     }
-                    if(saveLockKey(name,lockKey)){
+                    if (saveLockKey(name, lockKey)) {
                         loadLockInfoList();
+                    } else {
+                        LockUtils.toast(this, "密钥无效，请检查是否填写错误!");
                     }
                     addLockDialog.dismiss();
+
                 });
                 addLockDialog.show();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public Boolean saveLockKey(String name,String key) {
+    public Boolean saveLockKey(String name, String key) {
+        LockData lockData = EncryptionUtil.parseLockData(key);
+        if (lockData == null) {
+            return false;
+        }
         try {
             SharedPreferences sharedPreferences = getSharedPreferences("lockInfo", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -172,10 +181,11 @@ public class MainActivity extends AppCompatActivity implements LockInfoAdapter.o
         Map<String, ?> all = sharedPreferences.getAll();
         Gson gson = new Gson();
         for (String key : all.keySet()) {
-            LockInfo lockInfo = new LockInfo();
-            lockInfo.setName(key);
-            lockInfo.setDoorBluetoothKey(all.get(key).toString());
-            lockInfoList.add(lockInfo);
+            LockData lockData = EncryptionUtil.parseLockData(all.get(key).toString());
+            if (lockData != null) {
+                LockInfo lockInfo = new LockInfo(key, lockData.getLockName(), lockData.getLockMac(), all.get(key).toString());
+                lockInfoList.add(lockInfo);
+            }
         }
         //启动软件默认连接第一个蓝牙
 //        if (lockInfoList.size() != 0 && !isAutoCon) {
@@ -212,12 +222,8 @@ public class MainActivity extends AppCompatActivity implements LockInfoAdapter.o
     @Override
     public void onItemClick(LockInfo info) {
 
-        info.setDoorBluetoothMac("D1:69:82:CD:D2:8D");
-
-        LockData lockData = EncryptionUtil.parseLockData(info.getDoorBluetoothKey());
-
         Log.d("info----->", info.getName());
-        final String[] items = {"蓝牙开锁", "密码管理", "房卡管理", "删除"};
+        final String[] items = {"蓝牙开锁", "密码管理", "房卡管理", "复制lockKey", "删除"};
         AlertDialog.Builder listDialog = new AlertDialog.Builder(this);
         listDialog.setTitle(info.getName());
         listDialog.setItems(items, (dialog, which) -> {
@@ -240,6 +246,21 @@ public class MainActivity extends AppCompatActivity implements LockInfoAdapter.o
                 bundle.putString("lock", LockUtils.gson.toJson(info));
                 mIntent.putExtras(bundle);
                 startActivity(mIntent);
+                return;
+            }
+            if (items[which].equals("复制lockKey")) {
+                //获取剪贴板管理器
+                ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                // 创建普通字符型ClipData
+                SharedPreferences sharedPreferences = getSharedPreferences("lockInfo", Context.MODE_PRIVATE);
+                sharedPreferences.getAll().forEach((k, v) -> {
+                    if (k.equals(info.getName())) {
+                        ClipData mClipData = ClipData.newPlainText("Label", v.toString());
+                        // 将ClipData内容放到系统剪贴板里。
+                        cm.setPrimaryClip(mClipData);
+                        LockUtils.toast(this, "复制成功");
+                    }
+                });
                 return;
             }
             if (items[which].equals("删除")) {

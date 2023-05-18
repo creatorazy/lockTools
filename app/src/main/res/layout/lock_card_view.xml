@@ -21,66 +21,64 @@
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_gravity="center_horizontal"
-            android:paddingStart="20dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
             android:text="512"
             android:textColor="#FFFFFF"
             android:textSize="32sp"
-            android:gravity="center_vertical"
             tools:ignore="RtlSymmetry" />
 
 
-<!--        <TextView-->
-<!--            android:id="@+id/text_name_prefix"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@id/title"-->
-<!--            android:layout_marginStart="5dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:gravity="center_vertical"-->
-<!--            android:padding="3dp"-->
-<!--            android:text="蓝牙名称: "-->
-<!--            android:textColor="#FFFFFF"-->
-<!--            android:textSize="16sp" />-->
+        <TextView
+            android:id="@+id/text_name_prefix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:padding="3dp"
+            android:text="蓝牙名称: "
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/text_name"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@id/title"-->
-<!--            android:layout_toEndOf="@id/text_name_prefix"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:gravity="center_vertical"-->
-<!--            android:padding="3dp"-->
-<!--            android:text="name"-->
-<!--            android:textColor="#FFFFFF"-->
-<!--            android:textSize="16sp" />-->
+        <TextView
+            android:id="@+id/text_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_toEndOf="@id/text_name_prefix"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:padding="3dp"
+            android:text="name"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
 
 
-<!--        <TextView-->
-<!--            android:id="@+id/text_mac_prefix"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@id/text_name_prefix"-->
-<!--            android:layout_marginStart="5dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:padding="3dp"-->
-<!--            android:text="蓝牙Mac地址: "-->
-<!--            android:textColor="#FFFFFF"-->
-<!--            android:textSize="16sp" />-->
+        <TextView
+            android:id="@+id/text_mac_prefix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_name_prefix"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:padding="3dp"
+            android:text="蓝牙Mac地址: "
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/text_mac"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@id/text_name_prefix"-->
-<!--            android:layout_toEndOf="@id/text_mac_prefix"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:padding="3dp"-->
-<!--            android:text="mac"-->
-<!--            android:textColor="#FFFFFF"-->
-<!--            android:textSize="16sp" />-->
+        <TextView
+            android:id="@+id/text_mac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_name_prefix"
+            android:layout_toEndOf="@id/text_mac_prefix"
+            android:layout_marginTop="10dp"
+            android:padding="3dp"
+            android:text="mac"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
 
     </RelativeLayout>
 

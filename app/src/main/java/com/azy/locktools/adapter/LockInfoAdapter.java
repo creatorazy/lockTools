@@ -34,11 +34,11 @@ public class LockInfoAdapter extends RecyclerView.Adapter<LockInfoAdapter.Contac
         this.activity = activity;
     }
 
-    public interface onListItemClick{
+    public interface onListItemClick {
         void onItemClick(LockInfo info);
     }
 
-    public void setOnListItemClick(onListItemClick listItemClick){
+    public void setOnListItemClick(onListItemClick listItemClick) {
         this.mListener = listItemClick;
     }
 
@@ -62,8 +62,8 @@ public class LockInfoAdapter extends RecyclerView.Adapter<LockInfoAdapter.Contac
 
         //将viewHolder中hold住的各个view与数据源进行绑定(bind)
         holder.vTitle.setText(li.getName());
-//        holder.vName.setText(li.getDoorBluetoothName());
-//        holder.vMac.setText(li.getDoorBluetoothMac());
+        holder.vName.setText(li.getDoorBluetoothName());
+        holder.vMac.setText(li.getDoorBluetoothMac());
     }
 
     //此方法返回列表项的数目
@@ -72,7 +72,7 @@ public class LockInfoAdapter extends RecyclerView.Adapter<LockInfoAdapter.Contac
         return infoList.size();
     }
 
-    public void updateData(List<LockInfo> list){
+    public void updateData(List<LockInfo> list) {
         infoList.clear();
         infoList.addAll(list);
         notifyDataSetChanged();
@@ -88,8 +88,8 @@ public class LockInfoAdapter extends RecyclerView.Adapter<LockInfoAdapter.Contac
 
         public ContactViewHolder(View itemView) {
             super(itemView);
-//            vName = itemView.findViewById(R.id.text_name);
-//            vMac = itemView.findViewById(R.id.text_mac);
+            vName = itemView.findViewById(R.id.text_name);
+            vMac = itemView.findViewById(R.id.text_mac);
             vTitle = itemView.findViewById(R.id.title);
 
             //点击卡片弹出操作列表

@@ -71,7 +71,7 @@ public class LockUtils {
      * NOTICE !!
      * Passcode range : 4 - 9 Digits in length.
      */
-    public static void createCustomPasscode(Activity activity,CreateCustomPasscodeCallback callback, String password, LockInfo info) {
+    public static void createCustomPasscode(Activity activity, CreateCustomPasscodeCallback callback, String password, LockInfo info) {
         long startDate = System.currentTimeMillis();
         long endDate = 0;
         ensureBluetoothIsEnabled(activity);
@@ -80,7 +80,7 @@ public class LockUtils {
             toast(activity, "passcode is required");
             return;
         }
-        TTLockClient.getDefault().createCustomPasscode(password, startDate, endDate,info.getDoorBluetoothKey(), info.getDoorBluetoothMac(), callback);
+        TTLockClient.getDefault().createCustomPasscode(password, startDate, endDate, info.getDoorBluetoothKey(), info.getDoorBluetoothMac(), callback);
     }
 
 
@@ -145,7 +145,7 @@ public class LockUtils {
             public void onCancel(DialogInterface dialogInterface) {
                 TTLockClient.getDefault().clearAllCallback();
                 TTLockClient.getDefault().disconnect();
-                Log.w("c","取消");
+                Log.w("c", "取消");
             }
         });
         progressDialog.show();
