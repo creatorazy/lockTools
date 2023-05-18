@@ -51,7 +51,7 @@ public class PasswordActivity extends AppCompatActivity implements PasswordInfoA
         //读取传递参数
         String lockInfoStr = this.getIntent().getExtras().getString("lock");
         lockInfo = LockUtils.gson.fromJson(lockInfoStr, LockInfo.class);
-        Log.d("lock----->", lockInfo.getLockAlias());
+        Log.d("lock----->", lockInfo.getName());
         loadPasswordInfo();
     }
 

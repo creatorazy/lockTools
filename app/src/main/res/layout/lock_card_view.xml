@@ -27,6 +27,7 @@
             android:text="512"
             android:textColor="#FFFFFF"
             android:textSize="32sp"
+            android:gravity="center_vertical"
             tools:ignore="RtlSymmetry" />
 
 

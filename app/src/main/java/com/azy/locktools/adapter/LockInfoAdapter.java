@@ -61,9 +61,9 @@ public class LockInfoAdapter extends RecyclerView.Adapter<LockInfoAdapter.Contac
         holder.info = li;
 
         //将viewHolder中hold住的各个view与数据源进行绑定(bind)
-        holder.vTitle.setText(li.getBuildName() + "-" + li.getDormNumber());
-        holder.vName.setText(li.getDoorBluetoothName());
-        holder.vMac.setText(li.getDoorBluetoothMac());
+        holder.vTitle.setText(li.getName());
+//        holder.vName.setText(li.getDoorBluetoothName());
+//        holder.vMac.setText(li.getDoorBluetoothMac());
     }
 
     //此方法返回列表项的数目
@@ -88,8 +88,8 @@ public class LockInfoAdapter extends RecyclerView.Adapter<LockInfoAdapter.Contac
 
         public ContactViewHolder(View itemView) {
             super(itemView);
-            vName = itemView.findViewById(R.id.text_name);
-            vMac = itemView.findViewById(R.id.text_mac);
+//            vName = itemView.findViewById(R.id.text_name);
+//            vMac = itemView.findViewById(R.id.text_mac);
             vTitle = itemView.findViewById(R.id.title);
 
             //点击卡片弹出操作列表

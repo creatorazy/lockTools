@@ -27,7 +27,12 @@ import com.azy.locktools.retrofit.RetrofitAPIManager;
 import com.azy.locktools.utils.LockUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ttlock.bl.sdk.api.EncryptionUtil;
+import com.ttlock.bl.sdk.api.ExtendedBluetoothDevice;
 import com.ttlock.bl.sdk.api.TTLockClient;
+import com.ttlock.bl.sdk.callback.ScanLockCallback;
+import com.ttlock.bl.sdk.entity.LockData;
+import com.ttlock.bl.sdk.entity.LockError;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements LockInfoAdapter.o
         mRecyclerView.setAdapter(lockInfoAdapter);
 
         TTLockClient.getDefault().prepareBTService(getApplicationContext());
+
+
         loadLockInfoList();
     }
 
@@ -204,12 +211,18 @@ public class MainActivity extends AppCompatActivity implements LockInfoAdapter.o
 
     @Override
     public void onItemClick(LockInfo info) {
-        Log.d("info----->", info.getLockAlias());
+
+        info.setDoorBluetoothMac("D1:69:82:CD:D2:8D");
+
+        LockData lockData = EncryptionUtil.parseLockData(info.getDoorBluetoothKey());
+
+        Log.d("info----->", info.getName());
         final String[] items = {"蓝牙开锁", "密码管理", "房卡管理", "删除"};
         AlertDialog.Builder listDialog = new AlertDialog.Builder(this);
-        listDialog.setTitle(info.getBuildName() + "-" + info.getDormNumber());
+        listDialog.setTitle(info.getName());
         listDialog.setItems(items, (dialog, which) -> {
             if (items[which].equals("蓝牙开锁")) {
+
                 LockUtils.doUnlock(this, info);
                 return;
             }
@@ -230,7 +243,7 @@ public class MainActivity extends AppCompatActivity implements LockInfoAdapter.o
                 return;
             }
             if (items[which].equals("删除")) {
-                delLockInfo(info.getDoorBluetoothName());
+                delLockInfo(info.getName());
             }
         });
         listDialog.show();

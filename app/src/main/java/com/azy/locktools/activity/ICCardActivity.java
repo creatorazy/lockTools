@@ -50,7 +50,6 @@ public class ICCardActivity extends AppCompatActivity implements ICCardInfoAdapt
         //读取传递参数
         String lockInfoStr = this.getIntent().getExtras().getString("lock");
         lockInfo = LockUtils.gson.fromJson(lockInfoStr, LockInfo.class);
-        Log.d("lock----->", lockInfo.getLockAlias());
         loadICCardInfo();
     }
 
@@ -95,8 +94,6 @@ public class ICCardActivity extends AppCompatActivity implements ICCardInfoAdapt
 
     @Override
     public void onItemClick(ICCardInfo icCardInfo) {
-        Log.d("lock----->", lockInfo.getLockAlias());
-        Log.d("cardNumber----->", icCardInfo.getCardNumber());
         LockUtils.dialog(ICCardActivity.this,"是否确定删除此房卡",new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
