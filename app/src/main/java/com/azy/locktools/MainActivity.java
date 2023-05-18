@@ -2,9 +2,11 @@ package com.azy.locktools;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -12,6 +14,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -71,9 +74,31 @@ public class MainActivity extends AppCompatActivity implements LockInfoAdapter.o
 
         TTLockClient.getDefault().prepareBTService(getApplicationContext());
 
-
         loadLockInfoList();
+
+        initPermission();
     }
+
+    // todo 蓝牙动态申请权限
+    private void initPermission(){
+        List<String> mPermissionList = new ArrayList<>();
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+            // Android 版本大于等于 Android12 时
+            // 只包括蓝牙这部分的权限，其余的需要什么权限自己添加
+            mPermissionList.add(Manifest.permission.BLUETOOTH_SCAN);
+            mPermissionList.add(Manifest.permission.BLUETOOTH_ADVERTISE);
+            mPermissionList.add(Manifest.permission.BLUETOOTH_CONNECT);
+        } else {
+            // Android 版本小于 Android12 及以下版本
+            mPermissionList.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+            mPermissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+
+        if(mPermissionList.size() > 0){
+            ActivityCompat.requestPermissions(MainActivity.this,mPermissionList.toArray(new String[0]),1001);
+        }
+    }
+
 
     @Override
     protected void onResume() {
@@ -258,7 +283,6 @@ public class MainActivity extends AppCompatActivity implements LockInfoAdapter.o
                         ClipData mClipData = ClipData.newPlainText("Label", v.toString());
                         // 将ClipData内容放到系统剪贴板里。
                         cm.setPrimaryClip(mClipData);
-                        LockUtils.toast(this, "复制成功");
                     }
                 });
                 return;
